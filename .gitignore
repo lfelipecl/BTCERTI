@@ -1,3 +1,16 @@
 rascunho_requests.txt
 inventario_animais.pdf
 .vscode/
+rebanho.json
+*.parquet
+*.db
+*.drawio
+*.gdoc
+sigen_api_nbconvert.py
+_pycache_
+sigen_api.ipynb
+
+
+
+
+
