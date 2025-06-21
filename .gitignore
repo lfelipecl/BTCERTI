@@ -7,7 +7,7 @@ rebanho.json
 *.drawio
 *.gdoc
 sigen_api_nbconvert.py
-_pycache_
+__pycache__/
 sigen_api.ipynb
 
 
