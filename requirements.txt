@@ -1,4 +1,5 @@
 jupyter
+ipykernel
 voila
 ipywidgets
 ipydatagrid
