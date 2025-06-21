@@ -1,3 +1,4 @@
+jupyter
 voila
 ipywidgets
 ipydatagrid
@@ -7,3 +8,4 @@ pypdf
 numpy
 pyarrow
 duckdb
+
