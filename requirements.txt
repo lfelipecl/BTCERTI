@@ -9,4 +9,4 @@ pypdf
 numpy
 pyarrow
 duckdb
-
+openpyxl
