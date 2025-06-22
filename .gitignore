@@ -9,7 +9,7 @@ rebanho.json
 sigen_api_nbconvert.py
 __pycache__/
 sigen_api.ipynb
-relatorio.xlsx
+*.xlsx
 
 
 

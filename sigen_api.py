@@ -289,32 +289,27 @@ def get_atRebanho(ueps, date,session):
         if all_registers:
             try:
 
-                 # Salva os registros em um arquivo JSON
-                with open("rebanho.json", "w", encoding="utf-8") as f:
-                    json.dump(all_registers, f, ensure_ascii=False, indent=2)
+                    # Dataframe dos registros
+                    dfRebanho = pd.DataFrame(all_registers)
 
-                # Usa o DuckDB para ler e filtrar, removendo a coluna 'especie'
-                con = duckdb.connect()
-                con.execute("INSTALL json; LOAD json;")
-                at_rebanho = con.execute("""
-                    SELECT 
-                        dtRebanho,
-                        idUnidadeExploracao,
-                        nrBrinco,
-                        nrManejo,
-                        sexo,
-                        Anos,
-                        Meses,
-                        dtNasc
-                    FROM read_json_auto('rebanho.json')
-                """).arrow()
+                    # Usa o DuckDB para ler e filtrar, removendo a coluna 'especie'
+                    con = duckdb.connect()
+                    at_rebanho = con.execute("""
+                        SELECT 
+                            dtRebanho,
+                            idUnidadeExploracao,
+                            nrBrinco,
+                            nrManejo,
+                            sexo,
+                            Anos,
+                            Meses,
+                            dtNasc
+                        FROM dfRebanho
+                    """).arrow()
 
-                output["atRebanho"] = at_rebanho
-
-                # Remove o arquivo temporário
-                os.remove("rebanho.json")
-                #fecha a conexão
-                con.close()
+                    output["atRebanho"] = at_rebanho
+                    #fecha a conexão
+                    con.close()
 
             except Exception as e:
                 output['errors']["data_error"] = True
@@ -333,8 +328,14 @@ def get_atRebanho(ueps, date,session):
 # Uso
 
 
-# ueps = [1]
-# date = '13/06/2025'
+# ueps = [267401] # uep do código oficial 253763
+# date = '10/02/2025'
+
+# login = sigen_authenticate(user,password)
+
+# if login['login_error'] == False:
+#     session = login['session']
+
 
 # resultado = get_atRebanho(ueps, date,session)
 

@@ -54,31 +54,31 @@ max_obs AS (
 SELECT 
 	DISTINCT
 
-	rb.idUnidadeExploracao as idUep,
-	rb.nrBrinco,
-	rb.NrManejo,
-	rb.sexo,
+	rb.idUnidadeExploracao as 'Código UEP',
+	rb.nrBrinco as 'Nº Brinco',
+	rb.NrManejo as 'Nº Manejo',
+	rb.sexo as 'Sexo',
 	rb.Anos,
 	rb.Meses,
-	rb.dtNasc,
+	rb.dtNasc as 'Data Nasc.',
 	CASE
 		WHEN STRPTIME(rb.dtRebanho,'%d/%m/%Y') - STRPTIME(rb.dtNasc,'%d/%m/%Y') > INTERVAL 239 DAYS
 		THEN 'sim'
 		ELSE 'não'
-	END as 'IdadeBru',	
-	mb.idExameBru,
-	STRFTIME(mb.dtBru,'%d/%m/%Y') as dtBru,
-	rmb.ResBru,
-	COALESCE(rmb.dsTipoObservacao,obs.dsTipoobservacao,'') as ObsBru,
+	END as 'Apto Brucelose?',	
+	mb.idExameBru as 'Código Atestado Brucelose',
+	STRFTIME(mb.dtBru,'%d/%m/%Y') as 'Data Exame Brucelose',
+	rmb.ResBru as 'Resultado Brucelose',
+	COALESCE(rmb.dsTipoObservacao,obs.dsTipoobservacao,'') as 'Obs. Brucelose',
 	CASE
 		WHEN STRPTIME(rb.dtRebanho,'%d/%m/%Y') - STRPTIME(rb.dtNasc,'%d/%m/%Y') > INTERVAL 41 DAYS
 		THEN 'sim'
 		ELSE 'não'
-	END as 'IdadeTub',
-	mt.idExameTub,
-	STRFTIME(mt.dtTub,'%d/%m/%Y') as dtTub,
-	rmt.ResTub,
-	COALESCE(rmt.dsTipoObservacao,obs.dsTipoobservacao,'') as ObsTub
+	END as 'Apto Tuberculose?',
+	mt.idExameTub as 'Código Atestado Tuberculose',
+	STRFTIME(mt.dtTub,'%d/%m/%Y') as 'Data Exame Tuberculose',
+	rmt.ResTub as 'Resultado Tuberculose',
+	COALESCE(rmt.dsTipoObservacao,obs.dsTipoobservacao,'') as 'Obs. Tuberculose'
 	
 	
 	
