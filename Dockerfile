@@ -1,22 +1,29 @@
-# Imagem base leve com Python
 FROM python:3.11-slim
 
-# Instalar dependências do sistema (Voila e widgets precisam de alguns)
+# Instala dependências do sistema
 RUN apt-get update && apt-get install -y \
     build-essential \
-    curl \
     git \
-    && rm -rf /var/lib/apt/lists/*
+    curl \
+    && apt-get clean
 
-# Criar diretório de trabalho
-WORKDIR /code
+# Define diretório de trabalho
+WORKDIR /app
 
-# Copiar dependências e instalar
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# Copia arquivos do projeto
+COPY . /app
 
-# Copiar os arquivos da aplicação
-COPY . .
+# Instala dependências Python
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt \
+    && jupyter server extension enable voila --sys-prefix
 
-# Comando padrão para iniciar o app com Voila
-CMD ["voila", "--port=7860", "--no-browser", "--Voila.base_url=/", "--Voila.enable_nbextensions=True", "BTCerti_app.ipynb"]
+# Variáveis de ambiente para timeout de inatividade
+ENV SERVERAPP_KERNEL_IDLE_TIMEOUT = 1800
+
+# Expõe a porta do Voila
+EXPOSE 8866
+
+# Comando padrão
+CMD ["voila", "--no-browser", "--port=8866", "--Voila.ip=0.0.0.0", "BTCerti_app.ipynb"]
+
