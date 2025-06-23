@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Copia todo o código depois que as libs já foram instaladas
 COPY . /app
 
-EXPOSE 8866
+EXPOSE 8080
 
-CMD ["voila", "BTCerti_app.ipynb", "--port=8866", "--no-browser", "--Voila.ip=0.0.0.0"]
+CMD ["voila", "BTCerti_app.ipynb", "--port=8080", "--no-browser", "--Voila.ip=0.0.0.0"]
+
