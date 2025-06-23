@@ -1,29 +1,21 @@
 FROM python:3.11-slim
 
-# Instala dependências do sistema
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
-    curl \
-    && apt-get clean
-
-# Define diretório de trabalho
 WORKDIR /app
 
-# Copia arquivos do projeto
-COPY . /app
+# Copia requirements.txt para instalar pacotes
+COPY requirements.txt /app/
 
-# Instala dependências Python
+# Atualiza pip e instala os pacotes, incluindo o voila explicitamente
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir voila \
     && jupyter server extension enable voila --sys-prefix
 
-# Variáveis de ambiente para timeout de inatividade
-ENV SERVERAPP_KERNEL_IDLE_TIMEOUT = 1800
+# Copia todo o código para o container
+COPY . /app
 
-# Expõe a porta do Voila
+# Expõe a porta padrão do Voila
 EXPOSE 8866
 
-# Comando padrão
-CMD ["voila", "--no-browser", "--port=8866", "--Voila.ip=0.0.0.0", "BTCerti_app.ipynb"]
-
+# Comando para rodar o Voila apontando para o notebook principal (ajuste se precisar)
+CMD ["voila", "BTCerti_app.ipynb", "--port=8866", "--no-browser", "--Voila.ip=0.0.0.0"]
