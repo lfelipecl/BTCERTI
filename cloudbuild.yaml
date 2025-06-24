@@ -3,17 +3,17 @@ steps:
     args:
       - "run"
       - "deploy"
-      - "btcerti" # Nome do serviço Cloud Run que você quer substituir
+      - "btcerti"
       - "--image"
-      - "gcr.io/$PROJECT_ID/btcerti" # Imagem Docker criada
+      - "gcr.io/$PROJECT_ID/btcerti"
       - "--region"
-      - "us-central1" # Região do Cloud Run
+      - "us-central1"
       - "--platform"
       - "managed"
-      - "--allow-unauthenticated" # Permite acesso público, retire se quiser acesso autenticado
+      - "--allow-unauthenticated"
 
 images:
   - "gcr.io/$PROJECT_ID/btcerti"
 
 options:
-  logging: CLOUD_LOGGING_ONLY # Garante logs somente no Cloud Logging para conta customizada
+  logging: CLOUD_LOGGING_ONLY
