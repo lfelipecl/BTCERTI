@@ -17,3 +17,5 @@ images:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+  # Adicione esta linha
+  logsBucket: "gs://planilha-analise-certificacao-cloudbuild-logs"
