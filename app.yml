@@ -1,0 +1,5 @@
+runtime: python
+env: standart
+runtime_config:
+  python_version: 3
+entrypoint: voila --port=$PORT --Voila.ip=0.0.0.0 --no-browser BTCerti_app.ipynb
